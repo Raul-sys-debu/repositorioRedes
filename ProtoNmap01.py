@@ -3,6 +3,8 @@ import ipaddress
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
+import platform
+from scapy.all import sr, IP, TCP
 
 # Guardar resultados en archivo
 def guardar_en_txt(texto):
@@ -43,7 +45,7 @@ def scan_port(host, port, timeout=1):
                 except:
                     banner = "Sin banner"
                 return (port, banner)
-    except:
+    except Exception:
         return None
     return None
 
@@ -63,21 +65,54 @@ def port_scan(host, ports, timeout=1):
                 abiertos.append(result)
     return abiertos
 
+# Identificar el sistema operativo local
+def identificar_sistema_operativo():
+    print("\n[+] Identificando el sistema operativo del host local...")
+    os_info = platform.platform()
+    print(f"[+] Sistema operativo del host local: {os_info}")
+    guardar_en_txt(f"[+] Sistema operativo del host local: {os_info}")
+
+# Fingerprinting para identificar sistema remoto (Scapy)
+def fingerprint_os(host):
+    print(f"\n[+] Intentando identificar el sistema operativo del host remoto ({host})...")
+    guardar_en_txt(f"\n[+] Identificando el sistema operativo del host remoto ({host})...")
+    try:
+        ans, _ = sr(IP(dst=host)/TCP(dport=80, flags="S"), timeout=1, verbose=False)
+        if ans:
+            for _, rcv in ans:
+                ttl = rcv.ttl
+                print(f"[+] Sistema operativo identificado: Probablemente TTL={ttl} corresponde a {ttl_to_os(ttl)}")
+                guardar_en_txt(f"[+] Sistema operativo identificado: Probablemente TTL={ttl} corresponde a {ttl_to_os(ttl)}")
+    except Exception as e:
+        print("[!] No se pudo identificar el sistema operativo.")
+
+# TTL-to-OS mapping (aproximación simple)
+def ttl_to_os(ttl):
+    if ttl <= 64:
+        return "Linux/Unix"
+    elif ttl <= 128:
+        return "Windows"
+    else:
+        return "Desconocido"
+
 # Menú principal interactivo
 def main():
     print("=" * 50)
-    print("          ESCÁNER DE RED LOCAL (PYTHON)         ")
+    print("          ESCÁNER AVANZADO DE RED LOCAL         ")
     print("=" * 50)
     guardar_en_txt("=" * 50)
     guardar_en_txt(f"INICIO DEL ESCANEO - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     guardar_en_txt("=" * 50)
 
+    identificar_sistema_operativo()
+
     while True:
         print("\n¿Qué deseas hacer?")
         print("1) Escanear red para encontrar hosts activos")
         print("2) Escanear puertos en un host específico")
-        print("3) Salir")
-        opcion = input("Elige una opción (1, 2 o 3): ")
+        print("3) Identificar el sistema operativo de un host remoto")
+        print("4) Salir")
+        opcion = input("Elige una opción (1, 2, 3 o 4): ")
 
         if opcion == "1":
             red = input("Ingresa la subred : ")
@@ -94,6 +129,10 @@ def main():
                 print("[!] Error en el formato del rango de puertos.")
 
         elif opcion == "3":
+            host = input("Ingresa la IP del host objetivo: ")
+            fingerprint_os(host)
+
+        elif opcion == "4":
             print("Saliendo... El reporte ha sido guardado en 'reporte.txt'")
             guardar_en_txt("=" * 50)
             guardar_en_txt("FIN DEL ESCANEO")
@@ -104,5 +143,9 @@ def main():
             print("Opción inválida. Intenta de nuevo.")
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     main()
 23
+=======
+    main()
+>>>>>>> d42189e2708d8300b795ed2e2e357a7edf2621a3
