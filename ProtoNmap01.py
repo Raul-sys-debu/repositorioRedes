@@ -80,7 +80,7 @@ def main():
         opcion = input("Elige una opción (1, 2 o 3): ")
 
         if opcion == "1":
-            red = input("Ingresa la subred (ej. 192.168.1.0/24): ")
+            red = input("Ingresa la subred : ")
             ping_sweep(red)
 
         elif opcion == "2":
