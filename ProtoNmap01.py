@@ -11,11 +11,13 @@ def guardar_en_txt(texto):
     with open("reporte.txt", "a", encoding="utf-8") as f:
         f.write(texto + "\n")
 
-# Realiza ping a un host
+# Realiza ping a un host (multiplataforma)
 def ping(host, timeout=1):
     try:
-        result = subprocess.run(['ping', '-n', '1', '-w', str(timeout * 1000), host],
-                                stdout=subprocess.DEVNULL)
+        param = '-n' if platform.system().lower() == 'windows' else '-c'
+        result = subprocess.run(['ping', param, '1', host],
+                                stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL)
         return result.returncode == 0
     except Exception:
         return False
@@ -25,7 +27,13 @@ def ping_sweep(network, timeout=1):
     print(f"\n[+] Escaneando red: {network}")
     guardar_en_txt(f"\n[+] Escaneando red: {network}")
     activos = []
-    for ip in ipaddress.IPv4Network(network, strict=False):
+    try:
+        red = ipaddress.IPv4Network(network, strict=False)
+    except ValueError:
+        print("[!] Subred inválida. Intenta con formato: 192.168.1.0/24")
+        return []
+
+    for ip in red:
         ip_str = str(ip)
         if ping(ip_str, timeout):
             print(f"[+] Host activo: {ip_str}")
@@ -81,10 +89,15 @@ def fingerprint_os(host):
         if ans:
             for _, rcv in ans:
                 ttl = rcv.ttl
-                print(f"[+] Sistema operativo identificado: Probablemente TTL={ttl} corresponde a {ttl_to_os(ttl)}")
-                guardar_en_txt(f"[+] Sistema operativo identificado: Probablemente TTL={ttl} corresponde a {ttl_to_os(ttl)}")
+                os = ttl_to_os(ttl)
+                print(f"[+] Sistema operativo identificado: Probablemente TTL={ttl} corresponde a {os}")
+                guardar_en_txt(f"[+] Sistema operativo identificado: Probablemente TTL={ttl} corresponde a {os}")
+        else:
+            print("[!] No se obtuvo respuesta del host.")
+            guardar_en_txt("[!] No se obtuvo respuesta del host.")
     except Exception as e:
-        print("[!] No se pudo identificar el sistema operativo.")
+        print("[!] Error al identificar el sistema operativo.")
+        guardar_en_txt("[!] Error al identificar el sistema operativo.")
 
 # TTL-to-OS mapping (aproximación simple)
 def ttl_to_os(ttl):
@@ -115,22 +128,30 @@ def main():
         opcion = input("Elige una opción (1, 2, 3 o 4): ")
 
         if opcion == "1":
-            red = input("Ingresa la subred : ")
+            red = input("Ingresa la subred (ej. 192.168.1.0/24): ")
             ping_sweep(red)
 
         elif opcion == "2":
             host = input("Ingresa la IP del host objetivo: ")
-            rango = input("Ingresa el rango de puertos (ej. 20-100): ")
             try:
+                socket.inet_aton(host)
+                rango = input("Ingresa el rango de puertos (ej. 20-100): ")
                 inicio, fin = map(int, rango.split('-'))
-                ports = range(inicio, fin + 1)
-                port_scan(host, ports)
-            except:
-                print("[!] Error en el formato del rango de puertos.")
+                if 0 <= inicio <= 65535 and 0 <= fin <= 65535 and inicio <= fin:
+                    ports = range(inicio, fin + 1)
+                    port_scan(host, ports)
+                else:
+                    print("[!] El rango de puertos es inválido.")
+            except Exception:
+                print("[!] Error en el formato de IP o del rango de puertos.")
 
         elif opcion == "3":
             host = input("Ingresa la IP del host objetivo: ")
-            fingerprint_os(host)
+            try:
+                socket.inet_aton(host)
+                fingerprint_os(host)
+            except:
+                print("[!] IP no válida.")
 
         elif opcion == "4":
             print("Saliendo... El reporte ha sido guardado en 'reporte.txt'")
@@ -142,11 +163,6 @@ def main():
         else:
             print("Opción inválida. Intenta de nuevo.")
 
+# Ejecutar programa
 if __name__ == "__main__":
-<<<<<<< HEAD
     main()
-23
-=======
-    main()
->>>>>>> d42189e2708d8300b795ed2e2e357a7edf2621a3
-#miau
