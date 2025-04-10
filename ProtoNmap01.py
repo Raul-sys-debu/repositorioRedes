@@ -143,10 +143,4 @@ def main():
             print("Opción inválida. Intenta de nuevo.")
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     main()
-23
-=======
-    main()
->>>>>>> d42189e2708d8300b795ed2e2e357a7edf2621a3
-#miau
