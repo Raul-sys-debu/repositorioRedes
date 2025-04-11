@@ -11,19 +11,19 @@ def guardar_en_txt(texto):
     with open("reporte.txt", "a", encoding="utf-8") as f:
         f.write(texto + "\n")
 
-# Realiza ping a un host
-def ping(host, timeout=1):
+# Realiza ping a un host (con timeout ajustado)
+def ping(host, timeout=0.5):
     try:
         param = '-n' if platform.system().lower() == 'windows' else '-c'
         result = subprocess.run(['ping', param, '1', host],
                                 stdout=subprocess.DEVNULL,
                                 stderr=subprocess.DEVNULL)
-        return result.returncode == 0
+        return host if result.returncode == 0 else None
     except Exception:
-        return False
+        return None
 
-# Escanea red
-def ping_sweep(network, timeout=1):
+# Escanea red usando ThreadPoolExecutor para mayor paralelización
+def ping_sweep(network, timeout=0.5):
     print(f"\n[+] Escaneando red: {network}")
     guardar_en_txt(f"\n[+] Escaneando red: {network}")
     activos = []
@@ -33,15 +33,19 @@ def ping_sweep(network, timeout=1):
         print("[!] Subred inválida. Intenta con formato: 192.168.1.0/24")
         return []
 
-    for ip in red:
-        ip_str = str(ip)
-        if ping(ip_str, timeout):
-            print(f"[+] Host activo: {ip_str}")
-            guardar_en_txt(f"[+] Host activo: {ip_str}")
-            activos.append(ip_str)
+    # Usamos ThreadPoolExecutor para realizar ping en paralelo
+    with ThreadPoolExecutor(max_workers=800) as executor:
+        futures = [executor.submit(ping, str(ip), timeout) for ip in red]
+        for future in futures:
+            result = future.result()
+            if result:
+                print(f"[+] Host activo: {result}")
+                guardar_en_txt(f"[+] Host activo: {result}")
+                activos.append(result)
+
     return activos
 
-# Escanea un puerto
+# Escanea un puerto específico
 def scan_port(host, port, timeout=0.5):
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -57,12 +61,13 @@ def scan_port(host, port, timeout=0.5):
         return None
     return None
 
-# Escanea múltiples puertos
+# Escanea múltiples puertos en paralelo
 def port_scan(host, ports, timeout=0.5):
     print(f"\n[+] Escaneando puertos en {host}...")
     guardar_en_txt(f"\n[+] Escaneando puertos en {host}...")
     abiertos = []
 
+    # Usamos ThreadPoolExecutor para escanear múltiples puertos en paralelo
     with ThreadPoolExecutor(max_workers=800) as executor:
         futures = [executor.submit(scan_port, host, port, timeout) for port in ports]
         for future in futures:
@@ -73,7 +78,7 @@ def port_scan(host, ports, timeout=0.5):
                 abiertos.append(result)
     return abiertos
 
-# Identificar sistema local
+# Identificar sistema operativo local
 def identificar_sistema_operativo():
     print("\n[+] Identificando el sistema operativo del host local...")
     os_info = platform.platform()
@@ -99,7 +104,7 @@ def fingerprint_os(host):
         print("[!] Error al identificar el sistema operativo.")
         guardar_en_txt("[!] Error al identificar el sistema operativo.")
 
-# TTL-to-OS
+# Mapeo de TTL a sistemas operativos
 def ttl_to_os(ttl):
     if ttl <= 64:
         return "Linux/Unix"
@@ -108,7 +113,7 @@ def ttl_to_os(ttl):
     else:
         return "Desconocido"
 
-# Menú
+# Menú principal
 def main():
     print("=" * 50)
     print("          ESCÁNER AVANZADO DE RED LOCAL         ")
@@ -135,7 +140,7 @@ def main():
             host = input("Ingresa la IP del host objetivo: ")
             try:
                 socket.inet_aton(host)
-                rango = input("Ingresa el rango de puertos (ej. 20-100): ")
+                rango = input("Ingresa el rango de puertos (ej. 0-65535): ")
                 inicio, fin = map(int, rango.split('-'))
                 if 0 <= inicio <= 65535 and 0 <= fin <= 65535 and inicio <= fin:
                     ports = range(inicio, fin + 1)
@@ -163,8 +168,6 @@ def main():
         else:
             print("Opción inválida. Intenta de nuevo.")
 
-# Ejecutar
+# Ejecutar el programa
 if __name__ == "__main__":
     main()
-
-
