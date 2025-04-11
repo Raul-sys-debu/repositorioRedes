@@ -11,7 +11,7 @@ def guardar_en_txt(texto):
     with open("reporte.txt", "a", encoding="utf-8") as f:
         f.write(texto + "\n")
 
-# Realiza ping a un host (multiplataforma)
+# Realiza ping a un host
 def ping(host, timeout=1):
     try:
         param = '-n' if platform.system().lower() == 'windows' else '-c'
@@ -22,7 +22,7 @@ def ping(host, timeout=1):
     except Exception:
         return False
 
-# Escanea una red completa (ping sweep)
+# Escanea red
 def ping_sweep(network, timeout=1):
     print(f"\n[+] Escaneando red: {network}")
     guardar_en_txt(f"\n[+] Escaneando red: {network}")
@@ -41,8 +41,8 @@ def ping_sweep(network, timeout=1):
             activos.append(ip_str)
     return activos
 
-# Escanea un puerto específico
-def scan_port(host, port, timeout=1):
+# Escanea un puerto
+def scan_port(host, port, timeout=0.5):
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.settimeout(timeout)
@@ -53,17 +53,17 @@ def scan_port(host, port, timeout=1):
                 except:
                     banner = "Sin banner"
                 return (port, banner)
-    except Exception:
+    except:
         return None
     return None
 
 # Escanea múltiples puertos
-def port_scan(host, ports, timeout=1):
+def port_scan(host, ports, timeout=0.5):
     print(f"\n[+] Escaneando puertos en {host}...")
     guardar_en_txt(f"\n[+] Escaneando puertos en {host}...")
     abiertos = []
 
-    with ThreadPoolExecutor(max_workers=50) as executor:
+    with ThreadPoolExecutor(max_workers=800) as executor:
         futures = [executor.submit(scan_port, host, port, timeout) for port in ports]
         for future in futures:
             result = future.result()
@@ -73,14 +73,14 @@ def port_scan(host, ports, timeout=1):
                 abiertos.append(result)
     return abiertos
 
-# Identificar el sistema operativo local
+# Identificar sistema local
 def identificar_sistema_operativo():
     print("\n[+] Identificando el sistema operativo del host local...")
     os_info = platform.platform()
     print(f"[+] Sistema operativo del host local: {os_info}")
     guardar_en_txt(f"[+] Sistema operativo del host local: {os_info}")
 
-# Fingerprinting para identificar sistema remoto (Scapy)
+# Identificar SO remoto por TTL
 def fingerprint_os(host):
     print(f"\n[+] Intentando identificar el sistema operativo del host remoto ({host})...")
     guardar_en_txt(f"\n[+] Identificando el sistema operativo del host remoto ({host})...")
@@ -95,11 +95,11 @@ def fingerprint_os(host):
         else:
             print("[!] No se obtuvo respuesta del host.")
             guardar_en_txt("[!] No se obtuvo respuesta del host.")
-    except Exception as e:
+    except Exception:
         print("[!] Error al identificar el sistema operativo.")
         guardar_en_txt("[!] Error al identificar el sistema operativo.")
 
-# TTL-to-OS mapping (aproximación simple)
+# TTL-to-OS
 def ttl_to_os(ttl):
     if ttl <= 64:
         return "Linux/Unix"
@@ -108,7 +108,7 @@ def ttl_to_os(ttl):
     else:
         return "Desconocido"
 
-# Menú principal interactivo
+# Menú
 def main():
     print("=" * 50)
     print("          ESCÁNER AVANZADO DE RED LOCAL         ")
@@ -163,6 +163,8 @@ def main():
         else:
             print("Opción inválida. Intenta de nuevo.")
 
-# Ejecutar programa
+# Ejecutar
 if __name__ == "__main__":
     main()
+
+
