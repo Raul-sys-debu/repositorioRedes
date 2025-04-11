@@ -38,7 +38,7 @@ Al ejecutar el script, se vera un menu con opciones que son:
   Proporciona la IP del objetivo para estimar su sistema operativo según TTL
   ej:192.168.1.181 y arrojara a que tipo de sistema operativo corresponde
   
-   👥 Integrantes del equipo
+  # 👥 Integrantes del equipo
   Raul Vergara – Desarrollo de codigo
 
   Diego Calderon – Mejoras adicionales a codigo segun necesidad, Readme
