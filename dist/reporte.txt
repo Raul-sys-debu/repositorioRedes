@@ -2,3 +2,214 @@
 INICIO DEL ESCANEO - 2025-04-10 21:38:15
 ==================================================
 [+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+
+[+] Identificando el sistema operativo del host remoto (192.168.1.181)...
+[+] Sistema operativo identificado: Probablemente TTL=128 corresponde a Windows
+
+[+] Identificando el sistema operativo del host remoto (192.168.1.181)...
+[+] Sistema operativo identificado: Probablemente TTL=128 corresponde a Windows
+
+[+] Escaneando red: 192.168.1.10/24
+[+] Host activo: 192.168.1.0
+[+] Host activo: 192.168.1.1
+[+] Host activo: 192.168.1.2
+[+] Host activo: 192.168.1.3
+[+] Host activo: 192.168.1.4
+[+] Host activo: 192.168.1.5
+[+] Host activo: 192.168.1.6
+[+] Host activo: 192.168.1.7
+[+] Host activo: 192.168.1.8
+[+] Host activo: 192.168.1.9
+[+] Host activo: 192.168.1.10
+[+] Host activo: 192.168.1.11
+[+] Host activo: 192.168.1.12
+[+] Host activo: 192.168.1.13
+[+] Host activo: 192.168.1.14
+[+] Host activo: 192.168.1.15
+[+] Host activo: 192.168.1.16
+[+] Host activo: 192.168.1.17
+[+] Host activo: 192.168.1.18
+[+] Host activo: 192.168.1.19
+[+] Host activo: 192.168.1.20
+[+] Host activo: 192.168.1.21
+[+] Host activo: 192.168.1.22
+[+] Host activo: 192.168.1.23
+[+] Host activo: 192.168.1.24
+[+] Host activo: 192.168.1.26
+[+] Host activo: 192.168.1.27
+[+] Host activo: 192.168.1.28
+[+] Host activo: 192.168.1.29
+[+] Host activo: 192.168.1.30
+[+] Host activo: 192.168.1.32
+[+] Host activo: 192.168.1.33
+[+] Host activo: 192.168.1.34
+[+] Host activo: 192.168.1.35
+[+] Host activo: 192.168.1.36
+[+] Host activo: 192.168.1.37
+[+] Host activo: 192.168.1.38
+[+] Host activo: 192.168.1.40
+[+] Host activo: 192.168.1.41
+[+] Host activo: 192.168.1.42
+[+] Host activo: 192.168.1.43
+[+] Host activo: 192.168.1.44
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+
+[+] Escaneando puertos en 192.168.1.181...
+[+] Puerto 135 abierto - Banner: Sin banner
+[+] Puerto 139 abierto - Banner: Sin banner
+
+[+] Identificando el sistema operativo del host remoto (192.168.1.181)...
+[+] Sistema operativo identificado: Probablemente TTL=128 corresponde a Windows
+
+[+] Escaneando red: 192.168.1.0/24
+[+] Host activo: 192.168.1.0
+[+] Host activo: 192.168.1.1
+[+] Host activo: 192.168.1.2
+[+] Host activo: 192.168.1.3
+[+] Host activo: 192.168.1.4
+[+] Host activo: 192.168.1.5
+[+] Host activo: 192.168.1.6
+[+] Host activo: 192.168.1.7
+[+] Host activo: 192.168.1.8
+[+] Host activo: 192.168.1.9
+[+] Host activo: 192.168.1.10
+[+] Host activo: 192.168.1.11
+[+] Host activo: 192.168.1.12
+[+] Host activo: 192.168.1.13
+[+] Host activo: 192.168.1.14
+
+[+] Escaneando red: 192.168.1.
+
+[+] Escaneando red: 192.168.1.0/24
+[+] Host activo: 192.168.1.0
+[+] Host activo: 192.168.1.1
+[+] Host activo: 192.168.1.2
+[+] Host activo: 192.168.1.3
+[+] Host activo: 192.168.1.4
+[+] Host activo: 192.168.1.5
+[+] Host activo: 192.168.1.6
+[+] Host activo: 192.168.1.7
+[+] Host activo: 192.168.1.8
+[+] Host activo: 192.168.1.9
+[+] Host activo: 192.168.1.10
+[+] Host activo: 192.168.1.11
+[+] Host activo: 192.168.1.12
+[+] Host activo: 192.168.1.13
+[+] Host activo: 192.168.1.14
+[+] Host activo: 192.168.1.15
+[+] Host activo: 192.168.1.16
+[+] Host activo: 192.168.1.17
+[+] Host activo: 192.168.1.18
+[+] Host activo: 192.168.1.19
+[+] Host activo: 192.168.1.20
+[+] Host activo: 192.168.1.21
+[+] Host activo: 192.168.1.22
+[+] Host activo: 192.168.1.23
+[+] Host activo: 192.168.1.24
+[+] Host activo: 192.168.1.25
+[+] Host activo: 192.168.1.26
+[+] Host activo: 192.168.1.27
+[+] Host activo: 192.168.1.28
+[+] Host activo: 192.168.1.29
+[+] Host activo: 192.168.1.30
+[+] Host activo: 192.168.1.31
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+
+[+] Escaneando red: 192.168.1.0/24
+[+] Host activo: 192.168.1.0
+[+] Host activo: 192.168.1.1
+[+] Host activo: 192.168.1.2
+[+] Host activo: 192.168.1.3
+[+] Host activo: 192.168.1.4
+[+] Host activo: 192.168.1.5
+[+] Host activo: 192.168.1.6
+[+] Host activo: 192.168.1.7
+[+] Host activo: 192.168.1.8
+[+] Host activo: 192.168.1.9
+[+] Host activo: 192.168.1.10
+[+] Host activo: 192.168.1.11
+[+] Host activo: 192.168.1.12
+[+] Host activo: 192.168.1.13
+[+] Host activo: 192.168.1.14
+[+] Host activo: 192.168.1.15
+[+] Host activo: 192.168.1.16
+[+] Host activo: 192.168.1.17
+[+] Host activo: 192.168.1.18
+[+] Host activo: 192.168.1.19
+[+] Host activo: 192.168.1.20
+[+] Host activo: 192.168.1.21
+[+] Host activo: 192.168.1.22
+[+] Host activo: 192.168.1.23
+[+] Host activo: 192.168.1.24
+[+] Host activo: 192.168.1.25
+[+] Host activo: 192.168.1.26
+[+] Host activo: 192.168.1.27
+[+] Host activo: 192.168.1.28
+[+] Host activo: 192.168.1.29
+[+] Host activo: 192.168.1.30
+[+] Host activo: 192.168.1.31
+[+] Host activo: 192.168.1.32
+[+] Host activo: 192.168.1.33
+[+] Host activo: 192.168.1.34
+[+] Host activo: 192.168.1.35
+[+] Host activo: 192.168.1.36
+[+] Host activo: 192.168.1.37
+[+] Host activo: 192.168.1.38
+[+] Host activo: 192.168.1.39
+[+] Host activo: 192.168.1.40
+[+] Host activo: 192.168.1.41
+[+] Host activo: 192.168.1.42
+[+] Host activo: 192.168.1.43
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+
+[+] Identificando el sistema operativo del host remoto (192.168.1.181)...
+[+] Sistema operativo identificado: Probablemente TTL=128 corresponde a Windows
+
+[+] Escaneando red: 192.168.1.0/24
+[+] Host activo: 192.168.1.0
+[+] Host activo: 192.168.1.1
+[+] Host activo: 192.168.1.2
+[+] Host activo: 192.168.1.3
+[+] Host activo: 192.168.1.4
+[+] Host activo: 192.168.1.5
+[+] Host activo: 192.168.1.6
+[+] Host activo: 192.168.1.7
+[+] Host activo: 192.168.1.8
+[+] Host activo: 192.168.1.9
+[+] Host activo: 192.168.1.10
+[+] Host activo: 192.168.1.11
+[+] Host activo: 192.168.1.12
+[+] Host activo: 192.168.1.13
+[+] Host activo: 192.168.1.14
+[+] Host activo: 192.168.1.15
+[+] Host activo: 192.168.1.16
+[+] Host activo: 192.168.1.17
+[+] Host activo: 192.168.1.18
+[+] Host activo: 192.168.1.19
+[+] Host activo: 192.168.1.20
+[+] Host activo: 192.168.1.21
+[+] Host activo: 192.168.1.22
+[+] Host activo: 192.168.1.23
+[+] Host activo: 192.168.1.24
+[+] Host activo: 192.168.1.25
+[+] Host activo: 192.168.1.26
+[+] Host activo: 192.168.1.27
+[+] Host activo: 192.168.1.28
+[+] Host activo: 192.168.1.29
+[+] Host activo: 192.168.1.30
+[+] Host activo: 192.168.1.31
+[+] Host activo: 192.168.1.32
+[+] Host activo: 192.168.1.33
+==================================================
+INICIO DEL ESCANEO - 2025-04-11 08:20:59
+==================================================
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0
+==================================================
+INICIO DEL ESCANEO - 2025-04-11 08:32:07
+==================================================
+[+] Sistema operativo del host local: Windows-11-10.0.26100-SP0

@@ -11,7 +11,23 @@ def guardar_en_txt(texto):
     with open("reporte.txt", "a", encoding="utf-8") as f:
         f.write(texto + "\n")
 
-# Realiza ping a un host (con timeout ajustado)
+# Función para validar IP
+def validar_ip(ip):
+    try:
+        socket.inet_aton(ip)
+        return True
+    except socket.error:
+        return False
+
+# Validar subred con formato CIDR (ej: 192.168.1.0/24)
+def validar_subred(subred):
+    try:
+        ipaddress.IPv4Network(subred, strict=False)
+        return True
+    except ValueError:
+        return False
+
+# Realiza ping a un host
 def ping(host, timeout=0.5):
     try:
         param = '-n' if platform.system().lower() == 'windows' else '-c'
@@ -22,18 +38,17 @@ def ping(host, timeout=0.5):
     except Exception:
         return None
 
-# Escanea red usando ThreadPoolExecutor para mayor paralelización
+# Escanea red
 def ping_sweep(network, timeout=0.5):
-    print(f"\n[+] Escaneando red: {network}")
-    guardar_en_txt(f"\n[+] Escaneando red: {network}")
-    activos = []
-    try:
-        red = ipaddress.IPv4Network(network, strict=False)
-    except ValueError:
+    if not validar_subred(network):
         print("[!] Subred inválida. Intenta con formato: 192.168.1.0/24")
         return []
 
-    # Usamos ThreadPoolExecutor para realizar ping en paralelo
+    print(f"\n[+] Escaneando red: {network}")
+    guardar_en_txt(f"\n[+] Escaneando red: {network}")
+    activos = []
+
+    red = ipaddress.IPv4Network(network, strict=False)
     with ThreadPoolExecutor(max_workers=800) as executor:
         futures = [executor.submit(ping, str(ip), timeout) for ip in red]
         for future in futures:
@@ -61,13 +76,12 @@ def scan_port(host, port, timeout=0.5):
         return None
     return None
 
-# Escanea múltiples puertos en paralelo
+# Escanea múltiples puertos
 def port_scan(host, ports, timeout=0.5):
     print(f"\n[+] Escaneando puertos en {host}...")
     guardar_en_txt(f"\n[+] Escaneando puertos en {host}...")
     abiertos = []
 
-    # Usamos ThreadPoolExecutor para escanear múltiples puertos en paralelo
     with ThreadPoolExecutor(max_workers=800) as executor:
         futures = [executor.submit(scan_port, host, port, timeout) for port in ports]
         for future in futures:
@@ -78,7 +92,7 @@ def port_scan(host, ports, timeout=0.5):
                 abiertos.append(result)
     return abiertos
 
-# Identificar sistema operativo local
+# Identificar SO local
 def identificar_sistema_operativo():
     print("\n[+] Identificando el sistema operativo del host local...")
     os_info = platform.platform()
@@ -104,7 +118,7 @@ def fingerprint_os(host):
         print("[!] Error al identificar el sistema operativo.")
         guardar_en_txt("[!] Error al identificar el sistema operativo.")
 
-# Mapeo de TTL a sistemas operativos
+# Mapeo de TTL a SO
 def ttl_to_os(ttl):
     if ttl <= 64:
         return "Linux/Unix"
@@ -134,12 +148,17 @@ def main():
 
         if opcion == "1":
             red = input("Ingresa la subred (ej. 192.168.1.0/24): ")
+            if not validar_subred(red):
+                print("[!] Subred inválida. Usa el formato 192.168.1.0/24")
+                continue
             ping_sweep(red)
 
         elif opcion == "2":
             host = input("Ingresa la IP del host objetivo: ")
+            if not validar_ip(host):
+                print("[!] Dirección IP inválida. Debe ser una dirección IPv4.")
+                continue
             try:
-                socket.inet_aton(host)
                 rango = input("Ingresa el rango de puertos (ej. 0-65535): ")
                 inicio, fin = map(int, rango.split('-'))
                 if 0 <= inicio <= 65535 and 0 <= fin <= 65535 and inicio <= fin:
@@ -148,15 +167,14 @@ def main():
                 else:
                     print("[!] El rango de puertos es inválido.")
             except Exception:
-                print("[!] Error en el formato de IP o del rango de puertos.")
+                print("[!] Error en el formato del rango de puertos.")
 
         elif opcion == "3":
             host = input("Ingresa la IP del host objetivo: ")
-            try:
-                socket.inet_aton(host)
-                fingerprint_os(host)
-            except:
-                print("[!] IP no válida.")
+            if not validar_ip(host):
+                print("[!] Dirección IP inválida. Debe ser una dirección IPv4.")
+                continue
+            fingerprint_os(host)
 
         elif opcion == "4":
             print("Saliendo... El reporte ha sido guardado en 'reporte.txt'")
@@ -168,6 +186,6 @@ def main():
         else:
             print("Opción inválida. Intenta de nuevo.")
 
-# Ejecutar el programa
-# if __name__ == "__main__":
-  #  main()
+# Ejecutar si se usa directamente
+#if __name__ == "__main__":
+#    main()
