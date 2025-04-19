@@ -41,6 +41,6 @@ Al ejecutar el script, se vera un menu con opciones que son:
   # 👥 Integrantes del equipo
   Raul Vergara – Desarrollo de codigo
 
-  Diego Calderon – Mejoras adicionales a codigo segun necesidad, Readme
+  Diego Calderon – Mejoras adicionales a codigo segun necesidad, Readme, interfaz grafica
 
 
