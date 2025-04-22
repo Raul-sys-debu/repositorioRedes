@@ -1,11 +1,17 @@
-#  Escáner de una red local
+# 🔍 Network Scanner GUI
 
-Este proyecto en Python permite realizar un análisis avanzado de una red local. Las funcionalidades incluyen:
-- Detección de hosts activos mediante *ping sweep*
-- Escaneo de puertos con identificación de banners
-- Fingerprinting (identificacion de sistrema remoto) del sistema operativo remoto basado en TTL
-- Identificación del sistema operativo del host local
-- Registro de resultados en un archivo "reporte.txt"
+Una herramienta gráfica desarrollada en Python con `tkinter` para escanear redes, detectar puertos abiertos, hacer ping sweeps, y obtener información del sistema operativo (local y remoto). Todo desde una interfaz grafica con tema oscuro.
+
+##  Descripción del proyecto
+
+Este escáner de red fue diseñado para ser simple, rápido y visualmente amigable. Sus principales características son:
+
+- Detección del sistema operativo local
+- Identificación remota de SO usando TTL
+- Escaneo de puertos (individuales, rangos o múltiples específicos)
+- Ping Sweep en subredes completas
+- Interfaz moderna con tema oscuro
+- Resultados en tiempo real sin bloquear la interfaz
 
 
 # Requisitos
@@ -17,10 +23,25 @@ Este proyecto en Python permite realizar un análisis avanzado de una red local.
 
 - pip install scapy (libreria a descargar)
 
+###  Librerías utilizadas (todas estándar en Python)
+
+- tkinter  
+- socket  
+- platform  
+- threading, multiprocessing, concurrent.futures  
+- ipaddress, subprocess, os
+
+  No es necesario instalar paquetes adicionales. Todo funciona con librerías estándar de Python.
+
+
  # Crear un ejecutable para Windows
+ 
+ Se debe instalar en una terminal primero "pip install pyinstaller" y luego dentro de la carpeta que lo contenga en este caso "repositorioRedes2 y ejecutar una terminal dentro de la carpeta el comando "pyinstaller --noconsole --onefile Prono02.py"
 
  - pip install pyinstaller
- - pyinstaller --onefile ProtoNmap01.py
+ - pyinstaller --onefile Proto02.py
+
+   El ejecutable se encontrará en la carpeta dist/ y funcionará de manera independiente.
 
    en nuestro caso se almacenara en (C:\Users\Diego\RedesA\repositorioRedes\dist)
 
@@ -37,9 +58,10 @@ Al ejecutar el script, se vera un menu con opciones que son:
 - 3.Identificar sistema operativo remoto
   Proporciona la IP del objetivo para estimar su sistema operativo según TTL
   ej:192.168.1.181 y arrojara a que tipo de sistema operativo corresponde
+
   
   # 👥 Integrantes del equipo
-  Raul Vergara – Desarrollo de codigo
+  Raul Vergara – Codigo Base, Branches 
 
   Diego Calderon – Mejoras adicionales a codigo segun necesidad, Readme, interfaz grafica
 
