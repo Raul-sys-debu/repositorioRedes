@@ -61,8 +61,8 @@ Al ejecutar el script, se vera un menu con opciones que son:
 
   
   # 👥 Integrantes del equipo
-  Raul Vergara – Codigo Base, Branches 
+  Raul Vergara – Codigo Base, Branches, repositorio Github.
 
-  Diego Calderon – Mejoras adicionales a codigo segun necesidad, Readme, interfaz grafica
+  Diego Calderon – Mejoras adicionales a codigo segun necesidad, Readme, interfaz grafica.
 
 
