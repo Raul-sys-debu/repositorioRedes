@@ -44,7 +44,8 @@ Este escáner de red fue diseñado para ser simple, rápido y visualmente amigab
    El ejecutable se encontrará en la carpeta dist/ y funcionará de manera independiente.
 
    en nuestro caso se almacenara en (C:\Users\Diego\RedesA\repositorioRedes\dist)
-
+   # Github
+   en la carpeta Dist se encuentra el ejecutable.
    #  Ejemplos de uso
    
 Al ejecutar el script, se vera un menu con opciones que son:
