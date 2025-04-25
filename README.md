@@ -12,7 +12,8 @@ Este escáner de red fue diseñado para ser simple, rápido y visualmente amigab
 - Ping Sweep en subredes completas
 - Interfaz moderna con tema oscuro
 - Resultados en tiempo real sin bloquear la interfaz
-
+# nota adicional
+Se requiere desactivar el antivirus para que se puede ejecutar el proto02.exe
 
 # Requisitos
 
